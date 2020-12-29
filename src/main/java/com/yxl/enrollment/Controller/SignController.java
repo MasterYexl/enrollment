@@ -3,7 +3,7 @@ package com.yxl.enrollment.Controller;
 import com.yxl.enrollment.Mapper.StudentMapper;
 import com.yxl.enrollment.Module.MySql.Student;
 import com.yxl.enrollment.Module.SignState;
-import com.yxl.enrollment.Tool.Check;
+import com.yxl.enrollment.Conponent.Check;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +35,19 @@ public class SignController {
         userMapper.insertSelective(student);
         return "注册成功";
     }
+    @GetMapping("/tutor")
+    public String addTutor(Model model){
+        Student student = new Student();
+        model.addAttribute(student);
+        return "signup";
+    }
+    @ResponseBody
+    @RequestMapping(value = "/student", method = RequestMethod.POST)
+    public String doAddTutor(@ModelAttribute Student student){
+        System.out.println(student);
+        userMapper.insertSelective(student);
+        return "注册成功";
+    }
     @GetMapping("/logging")
     public String getSignPage(Model model){
         Student student = new Student();
@@ -56,5 +69,7 @@ public class SignController {
         }
         return "登录失败";
     }
+
+
 
 }
