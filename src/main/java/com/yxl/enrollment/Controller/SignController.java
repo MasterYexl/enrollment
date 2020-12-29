@@ -1,7 +1,10 @@
 package com.yxl.enrollment.Controller;
 
 import com.yxl.enrollment.Mapper.StudentMapper;
+import com.yxl.enrollment.Mapper.TutorMapper;
+import com.yxl.enrollment.Module.MySql.Admin;
 import com.yxl.enrollment.Module.MySql.Student;
+import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.SignState;
 import com.yxl.enrollment.Conponent.Check;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ public class SignController {
 
     @Autowired
     StudentMapper userMapper;
+    @Autowired
+    TutorMapper tutorMapper;
     @Autowired
     Check check;
 
@@ -42,21 +47,20 @@ public class SignController {
         return "signup";
     }
     @ResponseBody
-    @RequestMapping(value = "/student", method = RequestMethod.POST)
-    public String doAddTutor(@ModelAttribute Student student){
-        System.out.println(student);
-        userMapper.insertSelective(student);
+    @RequestMapping(value = "/tutor", method = RequestMethod.POST)
+    public String doAddTutor(@ModelAttribute Tutor tutor){
+        System.out.println(tutor);
+        tutorMapper.insertSelective(tutor);
         return "注册成功";
     }
-    @GetMapping("/logging")
+    @GetMapping("/login")
     public String getSignPage(Model model){
         Student student = new Student();
         model.addAttribute(student);
-        return "sign";
+        return "login";
     }
-    @ResponseBody
-    @PostMapping("/student-logging")
-    public String signIn(@ModelAttribute Student student, HttpSession session){
+    @PostMapping("/student-login")
+    public String signIn(@ModelAttribute Student student, HttpSession session,Model model){
         Student orgStudent = check.CheckStudent(student);
         if (orgStudent != null){
             SignState signState = new SignState();
@@ -64,12 +68,42 @@ public class SignController {
             signState.setRole(0);
             signState.setSignDate(date);
             signState.setUser(orgStudent);
+            signState.setName(orgStudent.getName());
             session.setAttribute("signState",signState);
-            return "登录成功";
+            model.addAttribute("signState",signState);
+            return "redirect:/admin";
         }
-        return "登录失败";
+        model.addAttribute("msg","登录失败");
+        return "login";
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("signState");
+        return "redirect:/sign/login";
+    }
 
+    @GetMapping("/lock")
+    public String lock(Model model,HttpSession session){
+        SignState signState = (SignState) session.getAttribute("signState");
+        signState.setLock(true);
+        session.setAttribute("signState",signState);
+        model.addAttribute("signState",signState);
+        return "locked";
+    }
+
+    @PostMapping("/unlock")
+    public String unlock(String password, HttpSession session){
+        SignState signState = (SignState) session.getAttribute("signState");
+        String orgPassword = "";
+        if (signState != null) {
+            if (signState.getRole()==0) orgPassword = signState.getStudent().getPassword();
+            if (signState.getRole()==1) orgPassword = signState.getTutor().getPassword();
+            if (signState.getRole()>1) orgPassword = signState.getAdmin().getPassword();
+            if (orgPassword.equals(password)) signState.setLock(false);
+        }
+        session.setAttribute("signState",signState);
+        return "redirect:/admin";
+    }
 
 }

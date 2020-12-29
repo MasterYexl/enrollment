@@ -9,6 +9,10 @@ import com.yxl.enrollment.Module.MySql.Tutor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 检查合法性
+ */
+
 @Component
 public class Check {
     @Autowired
