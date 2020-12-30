@@ -7,7 +7,10 @@ import com.yxl.enrollment.Module.MySql.Student;
 import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.SignState;
 import com.yxl.enrollment.Conponent.Check;
+import com.yxl.enrollment.Tool.Factory;
+import javafx.scene.control.ToolBar;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,53 +31,124 @@ public class SignController {
     Check check;
 
     @GetMapping("/student")
-    public String addStudent(Model model){
-        Student student = new Student();
+    public String addStudent(Model model, HttpSession session){
+        setMsg(model,session);
+        Student student = (Student) session.getAttribute("student");
+        if (student==null) student = new Student();
         model.addAttribute(student);
-        return "signup";
+        return "registration-student";
     }
-    @ResponseBody
-    @RequestMapping(value = "/student", method = RequestMethod.POST)
-    public String doAddStudent(@ModelAttribute Student student){
-        System.out.println(student);
-        userMapper.insertSelective(student);
-        return "注册成功";
+    @PostMapping("add-student")
+    public String doAddStudent(@ModelAttribute Student student, HttpSession session){
+        try {
+            userMapper.insertSelective(student);
+            session.setAttribute("msg", "注册成功");
+            return "redirect:/sign/login";
+        }catch (Exception e){
+            session.setAttribute("tutor", student);
+            session.setAttribute("msg","服务器错误");
+        }
+        return "redirect:/sign/student";
     }
     @GetMapping("/tutor")
-    public String addTutor(Model model){
-        Student student = new Student();
-        model.addAttribute(student);
-        return "signup";
+    public String addTutor(Model model, HttpSession session){
+        setMsg(model,session);
+        Tutor tutor = (Tutor) session.getAttribute("tutor");
+        if (tutor==null) tutor = new Tutor();
+        model.addAttribute(tutor);
+        return "registration";
     }
     @ResponseBody
-    @RequestMapping(value = "/tutor", method = RequestMethod.POST)
-    public String doAddTutor(@ModelAttribute Tutor tutor){
-        System.out.println(tutor);
-        tutorMapper.insertSelective(tutor);
-        return "注册成功";
+    @PostMapping("add-tutor")
+    public String doAddTutor(@ModelAttribute Tutor tutor, HttpSession session){
+        try {
+            tutorMapper.insertSelective(tutor);
+            session.setAttribute("msg", "注册成功");
+            return "redirect:/sign/login";
+        }catch (Exception e){
+            session.setAttribute("tutor", tutor);
+            session.setAttribute("msg","服务器错误");
+            return "redirect:/sign/tutor";
+        }
+
     }
     @GetMapping("/login")
-    public String getSignPage(Model model){
+    public String getSignPage(Model model,HttpSession session){
         Student student = new Student();
         model.addAttribute(student);
+        setMsg(model,session);
         return "login";
     }
-    @PostMapping("/student-login")
-    public String signIn(@ModelAttribute Student student, HttpSession session,Model model){
+    @PostMapping("login")
+    public String login(String id,String password, String role,Model model,HttpSession session){
+        try {
+            String email = "";
+            if (id.contains("@")){
+                email = id;
+                id = "-1";
+            }
+            if (role.equals("0")) {
+                Student student = new Student();
+                student.setSid(Integer.parseInt(id));
+                student.setPassword(password);
+                student.setEmail(email);
+                return studentSignIn(student,session,model);
+            }
+            if (role.equals("1")){
+                Tutor tutor = new Tutor();
+                tutor.setTid(Integer.parseInt(id));
+                tutor.setPassword(password);
+                tutor.setEmail(email);
+                return tutorSignIn(tutor, session, model);
+            }
+        }catch (Exception e){
+            try {
+                if (id.startsWith("::")) {
+                    id = id.substring(2);
+                    Admin admin = new Admin();
+                    admin.setAid(Integer.parseInt(id));
+                    admin.setPassword(password);
+                    return adminSignIn(admin, session, model);
+                }
+            }
+            catch (Exception ignored){}
+        }
+        return loginFail(model,session);
+    }
+    public String studentSignIn(Student student, HttpSession session,Model model){
         Student orgStudent = check.CheckStudent(student);
         if (orgStudent != null){
-            SignState signState = new SignState();
-            Date date = new Date();
-            signState.setRole(0);
-            signState.setSignDate(date);
-            signState.setUser(orgStudent);
-            signState.setName(orgStudent.getName());
-            session.setAttribute("signState",signState);
-            model.addAttribute("signState",signState);
+            Factory.createSignState(orgStudent, orgStudent.getName(), 0, session, model);
             return "redirect:/admin";
         }
+        return loginFail(model,session);
+    }
+    public String tutorSignIn(Tutor tutor, HttpSession session,Model model){
+        Tutor orgTutor = check.CheckTutor(tutor);
+        if (orgTutor != null){
+            Factory.createSignState(orgTutor, orgTutor.getName(), 1, session, model);
+            return "redirect:/admin";
+        }
+        return loginFail(model,session);
+    }
+    public String adminSignIn(Admin admin, HttpSession session,Model model){
+        Admin orgAdmin = check.CheckAdmin(admin);
+        if (orgAdmin != null){
+            Factory.createSignState(orgAdmin, orgAdmin.getName(), orgAdmin.getRole(), session, model);
+            return "redirect:/admin";
+        }
+        return loginFail(model,session);
+    }
+
+    public String loginFail(Model model, HttpSession session){
+        session.setAttribute("vc", true);
         model.addAttribute("msg","登录失败");
         return "login";
+    }
+
+    public void setMsg(Model model, HttpSession session){
+        model.addAttribute("msg",session.getAttribute("msg"));
+        session.removeAttribute("msg");
     }
 
     @GetMapping("/logout")

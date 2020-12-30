@@ -13,6 +13,7 @@ public class Student {
     private String password;
     private String universe;
     private String specialities;
+    private String email;
 
     @Id
     @Column(name = "sid", nullable = false)
@@ -90,5 +91,15 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(sid, name, password, universe, specialities);
+    }
+
+    @Basic
+    @Column(name = "email", nullable = true, length = 32)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

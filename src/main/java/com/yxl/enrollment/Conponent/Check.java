@@ -24,14 +24,20 @@ public class Check {
 
     public Student CheckStudent(Student student){
         int id = student.getSid();
-        Student orgStudent = studentMapper.selectById(id);
+        String email = student.getEmail();
+        Student orgStudent = null;
+        if (id!=-1) orgStudent = studentMapper.selectById(id);
+        else if (email.contains("@")) orgStudent = studentMapper.selectByEmail(email);
         if (orgStudent==null) return null;
         if (orgStudent.getPassword().equals(student.getPassword())) return orgStudent;
         else return null;
     }
     public Tutor CheckTutor(Tutor tutor){
         int id = tutor.getTid();
-        Tutor orgTutor = tutorMapper.selectById(id);
+        String email = tutor.getEmail();
+        Tutor orgTutor = null;
+        if (id != -1) orgTutor = tutorMapper.selectById(id);
+        else if (email.contains("@")) orgTutor = tutorMapper.selectByEmail(email);
         if (orgTutor==null) return null;
         if (orgTutor.getPassword().equals(tutor.getPassword())) return orgTutor;
         else return null;

@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface AdminMapper extends Mapper<Admin> {
-    @Select("select * from student where sid = #{aid}")
-    public Admin selectById(Integer aid);
-    @Select("select password from student where sid = #{aid}")
-    public String selectPasswordById(Integer aid);
+    @Select("select * from admin where aid = #{aid}")
+    Admin selectById(Integer aid);
+    @Select("select password from admin where aid = #{aid}")
+    String selectPasswordById(Integer aid);
 }

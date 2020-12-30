@@ -43,7 +43,7 @@
                    		
                    		<h2 class="header-title text-center">注册</h2>
                         
-                       <form th:action="@{/sign/add-tutor}" th:object="${tutor}" th:method="post">
+                       <form th:action="@{/sign/add-student}" th:object="${student}" th:method="post">
 
                            <div class="form-group">
                                <input type="text" class="form-control" th:field="*{name}" placeholder="用户名" >
@@ -51,6 +51,14 @@
 
                            <div class="form-group">
                                <input type="text" class="form-control" th:field="*{password}" placeholder="密码" >
+                           </div>
+
+                           <div class="form-group">
+                               <input type="text" class="form-control" th:field="*{universe}" placeholder="大学" >
+                           </div>
+
+                           <div class="form-group">
+                               <input type="text" class="form-control" th:field="*{specialities}" placeholder="专业" >
                            </div>
 
                            <div class="form-group">

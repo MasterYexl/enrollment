@@ -58,12 +58,12 @@ public class Enrollment {
         return Objects.hash(sid, tid, did);
     }
 
-    public void setEid(String eid) {
-        this.eid = eid;
-    }
-
     @Id
     public String getEid() {
         return eid;
+    }
+
+    public void setEid(String eid) {
+        this.eid = eid;
     }
 }

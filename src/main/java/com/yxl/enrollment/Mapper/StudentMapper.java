@@ -5,7 +5,10 @@ import org.apache.ibatis.annotations.Select;
 
 public interface StudentMapper extends tk.mybatis.mapper.common.Mapper<Student> {
     @Select("select * from student where sid = #{sid}")
-    public Student selectById(Integer sid);
+    Student selectById(Integer sid);
+    @Select("select * from student where email = #{email}")
+    Student selectByEmail(String email);
     @Select("select password from student where sid = #{sid}")
-    public String selectPasswordById(Integer sid);
+    String selectPasswordById(Integer sid);
+
 }

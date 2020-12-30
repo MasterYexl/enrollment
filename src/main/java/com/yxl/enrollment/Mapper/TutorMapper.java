@@ -7,7 +7,9 @@ import tk.mybatis.mapper.common.Mapper;
 
 public interface TutorMapper extends Mapper<Tutor> {
     @Select("select * from tutor where tid = #{tid}")
-    public Tutor selectById(Integer tid);
-    @Select("select password from student where sid = #{tid}")
-    public String selectPasswordById(Integer tid);
+    Tutor selectById(Integer tid);
+    @Select("select * from tutor where email = #{email}")
+    Tutor selectByEmail(String email);
+    @Select("select password from tutor where tid = #{tid}")
+    String selectPasswordById(Integer tid);
 }

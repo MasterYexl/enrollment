@@ -11,6 +11,7 @@ public class Tutor {
     private int tid;
     private String name;
     private String password;
+    private String email;
 
     @Id
     @Column(name = "tid", nullable = false)
@@ -55,5 +56,15 @@ public class Tutor {
     @Override
     public int hashCode() {
         return Objects.hash(tid, name, password);
+    }
+
+    @Basic
+    @Column(name = "email", nullable = true, length = 32)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
