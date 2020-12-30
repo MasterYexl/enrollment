@@ -1,6 +1,5 @@
 package com.yxl.enrollment.Mapper;
 
-import com.yxl.enrollment.Module.MySql.Student;
 import com.yxl.enrollment.Module.MySql.Tutor;
 import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.common.Mapper;

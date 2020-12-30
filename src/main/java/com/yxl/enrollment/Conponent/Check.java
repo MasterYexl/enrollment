@@ -3,9 +3,7 @@ package com.yxl.enrollment.Conponent;
 import com.yxl.enrollment.Mapper.AdminMapper;
 import com.yxl.enrollment.Mapper.StudentMapper;
 import com.yxl.enrollment.Mapper.TutorMapper;
-import com.yxl.enrollment.Module.MySql.Admin;
-import com.yxl.enrollment.Module.MySql.Student;
-import com.yxl.enrollment.Module.MySql.Tutor;
+import com.yxl.enrollment.Module.MySql.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +20,23 @@ public class Check {
     @Autowired
     private AdminMapper adminMapper;
 
-    public Student CheckStudent(Student student){
+    public boolean checkStudent(Student student){
+        return true;
+    }
+    public boolean checkAdmin(Admin admin){
+        return true;
+    }
+    public boolean checkTutor(Tutor tutor){
+        return true;
+    }
+    public boolean checkStudentInformation(StudentInformation studentInformation){
+        return true;
+    }
+    public boolean checkTutorInformation(TutorInformation tutorInformation){
+        return true;
+    }
+
+    public Student CheckStudentPassword(Student student){
         int id = student.getSid();
         String email = student.getEmail();
         Student orgStudent = null;
@@ -32,7 +46,7 @@ public class Check {
         if (orgStudent.getPassword().equals(student.getPassword())) return orgStudent;
         else return null;
     }
-    public Tutor CheckTutor(Tutor tutor){
+    public Tutor CheckTutorPassword(Tutor tutor){
         int id = tutor.getTid();
         String email = tutor.getEmail();
         Tutor orgTutor = null;
@@ -42,7 +56,7 @@ public class Check {
         if (orgTutor.getPassword().equals(tutor.getPassword())) return orgTutor;
         else return null;
     }
-    public Admin CheckAdmin(Admin admin){
+    public Admin CheckAdminPassword(Admin admin){
         int id = admin.getAid();
         Admin orgAdmin = adminMapper.selectById(id);
         if (orgAdmin==null) return null;

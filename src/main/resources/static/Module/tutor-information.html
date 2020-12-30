@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <title></title>
+    <link href="/css/icons.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+<!--body wrapper start-->
+<div th:replace="msg::showMsg"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="white-box">
+            <h2 class="header-title">录取信息上传</h2>
+            <form class="js-validation-bootstrap form-horizontal" th:action="@{/upload/add-tutor-info}" th:method="post" th:object="${tifo}">
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="direction">研究方向 <span class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" id="direction" name="direction" th:field="*{direction}"
+                               placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="number">录取人数 <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" id="number" name="number" th:field="*{number}"
+                               placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="require">录取要求 <span class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" id="require" name="require" rows="14" placeholder="" th:field="*{require}"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="scholarship">奖学金 <span
+                            class="text-danger">*</span></label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="text" id="scholarship" th:field="*{scholarship}"
+                               name="scholarship" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="tel">手机号 </label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="tel" id="tel" th:field="*{tel}"
+                               name="tel" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label" for="email">邮箱 </label>
+                    <div class="col-md-9">
+                        <input class="form-control" type="email" id="email" th:field="*{email}"
+                               name="email" placeholder="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-8 col-md-offset-3">
+                        <button class="btn  btn-primary" type="submit">提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<!--Begin core plugin -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/plugins/moment/moment.js"></script>
+<script src="/js/jquery.slimscroll.js "></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<script src="/js/functions.js"></script>
+<!-- End core plugin -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/pages/validation-custom.js"></script>
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+
+</body>
+
+</html>

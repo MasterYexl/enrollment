@@ -3,3 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/enrollment?serverTimezone=UTC
     username: root
     password: wdetgvsw
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
