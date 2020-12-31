@@ -14,6 +14,7 @@ public class Message {
     private String toEmail;
     private String message;
     private Timestamp messageTime;
+    private byte isRead;
 
     @Id
     @Column(name = "mid", nullable = false)
@@ -80,5 +81,15 @@ public class Message {
     @Override
     public int hashCode() {
         return Objects.hash(mid, fromEmail, toEmail, message, messageTime);
+    }
+
+    @Basic
+    @Column(name = "is_read", nullable = false)
+    public byte getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(byte isRead) {
+        this.isRead = isRead;
     }
 }

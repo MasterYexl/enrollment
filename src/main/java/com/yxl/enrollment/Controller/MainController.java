@@ -21,15 +21,15 @@ public class MainController {
     public String index(Model model, HttpSession session){
         SignState signState = (SignState) session.getAttribute("signState");
         if (signState != null) {
-            if (signState.getRole()==0) {
+            if (signState.getUser().getRole()==0) {
                 Student student = signState.getStudent();
                 model.addAttribute("student",student);
             }
-            if (signState.getRole()==1){
+            if (signState.getUser().getRole()==1){
                 Tutor tutor = signState.getTutor();
                 model.addAttribute("tutor",tutor);
             }
-            if (signState.getRole()>1){
+            if (signState.getUser().getRole()>1){
                 Admin admin = signState.getAdmin();
                 model.addAttribute("tutor",admin);
             }

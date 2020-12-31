@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Student {
+public class Student implements User{
     private int sid;
     private String name;
     private String password;
@@ -91,6 +91,25 @@ public class Student {
     @Override
     public int hashCode() {
         return Objects.hash(sid, name, password, universe, specialities);
+    }
+
+    @Override
+    public int getId() {
+        return getSid();
+    }
+
+    @Override
+    public void setId(int id) {
+        setSid(id);
+    }
+
+    @Override
+    public int getRole() {
+        return 0;
+    }
+
+    @Override
+    public void setRole(int role) {
     }
 
     @Basic

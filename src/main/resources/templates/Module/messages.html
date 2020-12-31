@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../static/images/favicon.png" type="image/png">
+  <title></title>
+   <link href="/css/icons.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+    <style>
+        .col-md-9{
+            width: 100%;
+        }
+    </style>
+    
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="/js/html5shiv.min.js"></script>
+          <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body class="sticky-header">
+<div th:replace="Module/msg.html::showMsg"></div>
+        <!--body wrapper start-->
+        <div class="wrapper">
+                  <!--Start row-->
+                  <div class="row">
+                         <div class="col-md-9">
+                         <div class="white-box">
+                            <div class="mailbox-content">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="1" class="hidden-xs">
+                                          <div class="checkbox">
+                                             <input type="checkbox" class="check-mail-all">
+                                              <label></label>
+                                            </div>
+                                        </th>
+                                        <th class="text-right" colspan="5">
+                                            <a class="btn btn-primary outline-btn m-r-10"  title="Refresh"><i class="fa fa-refresh"></i></a>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="message-all-list">
+                                    <tr th:each="message:${messages}" th:class="${message.isRead==1? 'read':'unread'}">
+                                        <td class="hidden-xs">
+                                           <div class="checkbox">
+                                             <input type="checkbox" class="checkbox-mail" >
+                                              <label></label>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-xs">
+                                            <i th:class="${message.isRead==1? 'fa fa-circle icon-state-warning':''}"></i>
+                                        </td>
+                                        <td class="hidden-xs" th:text="${message.fromEmail}">
+
+                                        </td>
+                                        <td th:text="${message.message}">
+                                        <td>
+                                        </td>
+                                        <td class="time-stamp" th:text="${message.messageTime}">
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            </div>
+                            
+                            <div class="col-md-12">    
+                             <div class="row">
+                              <div class="col-md-7"> Showing 1 - 15 of 200 </div>
+                              <div class="col-md-5">
+                                <div class="btn-group pull-right">
+                                  <button type="button" class="btn btn-primary outline-btn m-r-5"><i class="fa fa-angle-left"></i></button>
+                                  <button type="button" class="btn btn-primary outline-btn"><i class="fa fa-angle-right"></i></button>
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                        
+                        </div>
+                        </div>
+                      </div>
+                      </div>
+                  </div>
+                  <!--End row-->
+            </div>
+      <!-- End Wrapper-->
+
+    <!--Begin core plugin -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/plugins/moment/moment.js"></script>
+    <script  src="/js/jquery.slimscroll.js "></script>
+    <script src="/js/jquery.nicescroll.js"></script>
+    <script src="/js/functions.js"></script>
+    <!-- End core plugin -->
+
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+	<script src="/pages/inbox.js"></script>
+    <!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+</body>
+
+</html>

@@ -121,7 +121,7 @@ public class SignController {
     public String studentSignIn(Student student, HttpSession session,Model model){
         Student orgStudent = check.CheckStudentPassword(student);
         if (orgStudent != null){
-            Factory.createSignState(orgStudent, orgStudent.getName(), 0, session, model);
+            Factory.createSignState(orgStudent, session, model);
             return "redirect:/admin";
         }
         return loginFail(model,session);
@@ -129,7 +129,7 @@ public class SignController {
     public String tutorSignIn(Tutor tutor, HttpSession session,Model model){
         Tutor orgTutor = check.CheckTutorPassword(tutor);
         if (orgTutor != null){
-            Factory.createSignState(orgTutor, orgTutor.getName(), 1, session, model);
+            Factory.createSignState(orgTutor, session, model);
             return "redirect:/admin";
         }
         return loginFail(model,session);
@@ -137,7 +137,7 @@ public class SignController {
     public String adminSignIn(Admin admin, HttpSession session,Model model){
         Admin orgAdmin = check.CheckAdminPassword(admin);
         if (orgAdmin != null){
-            Factory.createSignState(orgAdmin, orgAdmin.getName(), orgAdmin.getRole(), session, model);
+            Factory.createSignState(orgAdmin, session, model);
             return "redirect:/admin";
         }
         return loginFail(model,session);
@@ -169,9 +169,9 @@ public class SignController {
         SignState signState = (SignState) session.getAttribute("signState");
         String orgPassword = "";
         if (signState != null) {
-            if (signState.getRole()==0) orgPassword = signState.getStudent().getPassword();
-            if (signState.getRole()==1) orgPassword = signState.getTutor().getPassword();
-            if (signState.getRole()>1) orgPassword = signState.getAdmin().getPassword();
+            if (signState.getUser().getRole()==0) orgPassword = signState.getStudent().getPassword();
+            if (signState.getUser().getRole()==1) orgPassword = signState.getTutor().getPassword();
+            if (signState.getUser().getRole()>1) orgPassword = signState.getAdmin().getPassword();
             if (orgPassword.equals(password)) signState.setLock(false);
         }
         session.setAttribute("signState",signState);

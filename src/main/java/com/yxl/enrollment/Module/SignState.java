@@ -3,14 +3,13 @@ package com.yxl.enrollment.Module;
 import com.yxl.enrollment.Module.MySql.Admin;
 import com.yxl.enrollment.Module.MySql.Student;
 import com.yxl.enrollment.Module.MySql.Tutor;
+import com.yxl.enrollment.Module.MySql.User;
 
 import java.util.Date;
 
 public class SignState {
-    private Object user;
+    private User user;
     private Date signDate;
-    private String name;
-    private int role;
     private boolean lock;
     private String password;
 
@@ -30,23 +29,12 @@ public class SignState {
         this.lock = lock;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getRoleName() {
-        return roleName;
+        if (user.getRole()==0) return "学生";
+        if (user.getRole()==1) return "导师";
+        if (user.getRole()>1) return "管理员";
+        return "错误";
     }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    private String roleName;
 
     public Student getStudent() {
         return (Student) user;
@@ -60,7 +48,11 @@ public class SignState {
         return (Admin) user;
     }
 
-    public void setUser(Object user) {
+    public User getUser(){
+        return user;
+    }
+
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -72,14 +64,4 @@ public class SignState {
         this.signDate = signDate;
     }
 
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        if (role==0) setRoleName("学生");
-        if (role==1) setRoleName("导师");
-        if (role>1) setRoleName("管理员");
-        this.role = role;
-    }
 }

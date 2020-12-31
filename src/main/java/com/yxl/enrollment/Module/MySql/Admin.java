@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.util.Objects;
 
 @Entity
-public class Admin {
+public class Admin implements User{
     private int aid;
     private String password;
     private String name;
@@ -43,6 +43,16 @@ public class Admin {
         this.name = name;
     }
 
+    @Override
+    public int getId() {
+        return aid;
+    }
+
+    @Override
+    public void setId(int id) {
+        setAid(id);
+    }
+
     @Basic
     @Column(name = "role", nullable = false)
     public int getRole() {
@@ -51,6 +61,15 @@ public class Admin {
 
     public void setRole(int role) {
         this.role = role;
+    }
+
+    @Override
+    public String getEmail() {
+        return "-1";
+    }
+
+    @Override
+    public void setEmail(String email) {
     }
 
     @Override

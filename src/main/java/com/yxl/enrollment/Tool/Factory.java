@@ -1,6 +1,7 @@
 package com.yxl.enrollment.Tool;
 
 import com.yxl.enrollment.Module.MySql.Message;
+import com.yxl.enrollment.Module.MySql.User;
 import com.yxl.enrollment.Module.SignState;
 import org.springframework.ui.Model;
 
@@ -10,13 +11,11 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Factory {
-    public static SignState createSignState(Object user, String userName, int role, HttpSession session, Model model){
+    public static SignState createSignState(User user, HttpSession session, Model model){
         SignState signState = new SignState();
         Date date = new Date();
-        signState.setRole(role);
         signState.setSignDate(date);
         signState.setUser(user);
-        signState.setName(userName);
         session.setAttribute("signState",signState);
         session.removeAttribute("vc");
         model.addAttribute("signState",signState);

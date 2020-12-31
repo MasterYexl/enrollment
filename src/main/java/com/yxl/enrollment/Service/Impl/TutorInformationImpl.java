@@ -21,16 +21,14 @@ public class TutorInformationImpl implements TutorInformationService {
     public int addTutorInformation(TutorInformation tutorInformation) {
         TutorInformation orgInfo = getTutorInformation(tutorInformation.getTid());
         if (orgInfo.equals(tutorInformation)) return -1;
-        System.out.println(tutorInformation.toString());
         String msg = "一条教师信息待审核";
         if (orgInfo.getTid() == tutorInformation.getTid()) {
             tutorInformation.setTutorInfoId(orgInfo.getTutorInfoId());
-            System.out.println("更新后:\n"+tutorInformation);
             tutorInformationMapper.updateByPrimaryKey(tutorInformation);
             msg = "一条教师更新信息待审核";
         }
         else tutorInformationMapper.insert(tutorInformation);
-        Message message = Factory.createMessage(tutorInformation.getTid() + "", "-1", msg);
+        Message message = Factory.createMessage(tutorInformation.getEmail() + "", "-1", msg);
         return messageMapper.insert(message);
     }
 

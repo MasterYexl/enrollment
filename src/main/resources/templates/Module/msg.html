@@ -3,10 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <body>
 <div th:fragment="showMsg">
+    <script src="/plugins/sweetalert/sweet-alert.js"></script>
     <div th:text="${msg}" id="msg" hidden="hidden"></div>
     <script>
         let msg = document.getElementById("msg");
-        if (msg.innerText!=="") alert(msg.innerText);
+        let oldFun = null;
+        if (window.onload!==null) eval("oldFun="+window.onload.toString());
+        window.onload = function (){
+            if (oldFun!==null) oldFun();
+            if (msg.innerText!=="") swal(msg.innerText);
+        }
     </script>
 </div>
 </body>
