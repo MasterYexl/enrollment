@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <title></title>
+    <link href="/css/icons.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+    <link href="/plugins/dropzone/dropzone.css" rel="stylesheet" type="text/css" />
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        .selected{
+            color: black;
+            cursor: unset;
+        }
+        a{
+            color: #00aeff;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        let dropzone = document.getElementById("dropzone");
+        function changeMode(dom, mode){
+            document.getElementsByClassName("selected")[0].className = "";
+            dom.className = "selected";
+            if (mode) document.dropzone.action = "upload/add-student-resume";
+            else document.dropzone.action = "upload/add-student-certificate";
+        }
+    </script>
+
+</head>
+
+<body class="sticky-header">
+<!--body wrapper start-->
+<div th:replace="Module/msg.html::showMsg"></div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="white-box">
+            <h2 class="header-title">简历上传</h2>
+            <form action="/upload/add-student-resume" name="dropzone" class="dropzone" id="dropzone">
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+            </form>
+            <h2 class="header-title">证书上传</h2>
+            <form action="/upload/add-student-certificate" name="dropzone" class="dropzone">
+                <div class="fallback">
+                    <input name="file" type="file" multiple />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end row -->
+
+
+<!--Begin core plugin -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/plugins/moment/moment.js"></script>
+<script src="/js/jquery.slimscroll.js "></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<script src="/js/functions.js"></script>
+<!-- End core plugin -->
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+<script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="/pages/validation-custom.js"></script>
+<script src="/plugins/dropzone/dropzone.js"></script>
+
+<!-- BEGIN PAGE LEVEL SCRIPTS -->
+
+
+</body>
+
+</html>

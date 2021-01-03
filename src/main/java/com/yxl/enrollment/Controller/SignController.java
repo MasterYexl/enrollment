@@ -7,6 +7,7 @@ import com.yxl.enrollment.Module.MySql.Student;
 import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.SignState;
 import com.yxl.enrollment.Conponent.Check;
+import com.yxl.enrollment.Service.Impl.StudentInImpl;
 import com.yxl.enrollment.Tool.Factory;
 import com.yxl.enrollment.Tool.Tool;
 import javafx.scene.control.ToolBar;
@@ -27,6 +28,8 @@ public class SignController {
     @Autowired
     StudentMapper userMapper;
     @Autowired
+    StudentInImpl studentIn;
+    @Autowired
     TutorMapper tutorMapper;
     @Autowired
     Check check;
@@ -43,7 +46,7 @@ public class SignController {
     public String doAddStudent(@ModelAttribute Student student, HttpSession session){
         if (check.checkStudent(student)){
             try {
-                userMapper.insertSelective(student);
+                studentIn.addStudent(student);
                 session.setAttribute("msg", "注册成功");
                 return "redirect:/sign/login";
             }catch (Exception e){

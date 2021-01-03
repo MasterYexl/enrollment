@@ -55,13 +55,14 @@
                 <li class="menu-list"><a href="admin-index.html"><i class="icon-user"></i> <span>个人信息管理</span></a>
                     <ul class="sub-menu-list">
                         <li  class="active"><a href="admin-index.html"> 个人信息修改</a></li>
-                        <li><a href="#" onclick="document.getElementById('content-frame').src='/upload/tutor-info'"> 录取要求</a></li>
+                        <li><a href="#" onclick="frameJump('/upload/tutor-info')"> 录取要求</a></li>
+                        <li><a href="#" onclick="frameJump('/upload/student-info')"> 个人简历</a></li>
                     </ul>
                 </li>
-                <li class="menu-list"><a href="admin-index.html"><i class="icon-user"></i> <span>信息查询</span></a>
+                <li class="menu-list"><a href="admin-index.html"><i class="icon-people"></i> <span>信息查询</span></a>
                     <ul class="sub-menu-list">
                         <li  class="active"><a href="#" onclick="frameJump('/user/tutor')"> 导师信息查询</a></li>
-                        <li><a href="#" onclick="document.getElementById('content-frame').src='/upload/tutor-info'"> 学生信息查询</a></li>
+                        <li><a href="#" onclick="frameJump('/upload/tutor-info')"> 学生信息查询</a></li>
                     </ul>
                 </li>
                 <li><a href="#" onclick="frameJump('/message/page')"><i class="icon-envelope-open"></i> <span>消息</span></a>

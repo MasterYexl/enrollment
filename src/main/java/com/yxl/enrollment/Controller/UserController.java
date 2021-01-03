@@ -1,6 +1,5 @@
 package com.yxl.enrollment.Controller;
 
-import com.alibaba.fastjson.JSON;
 import com.yxl.enrollment.Mapper.TutorInformationMapper;
 import com.yxl.enrollment.Mapper.TutorMapper;
 import com.yxl.enrollment.Module.MySql.Tutor;
@@ -39,4 +38,5 @@ public class UserController {
         model.addAttribute("ti",tutorInformation);
         return "/Module/tutor-view-information";
     }
+
 }

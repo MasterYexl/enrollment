@@ -3,6 +3,10 @@ spring:
     url: jdbc:mysql://localhost:3306/enrollment?serverTimezone=UTC
     username: root
     password: wdetgvsw
+  servlet:
+    multipart:
+      max-request-size: 2MB
+      max-file-size: 2MB
 
 mybatis:
   configuration:

@@ -10,8 +10,8 @@ import java.util.Objects;
 @Table(name = "student_information", schema = "enrollment", catalog = "")
 public class StudentInformation {
     private int sid;
-    private Byte resume;
-    private Integer certificate;
+    private Byte resume=0;
+    private Integer certificate=0;
     private String grade;
     private Integer secondDirection;
     private Integer firstDirection;
@@ -104,5 +104,18 @@ public class StudentInformation {
     @Override
     public int hashCode() {
         return Objects.hash(sid, resume, certificate, grade, secondDirection, firstDirection, process);
+    }
+
+    @Override
+    public String toString() {
+        return "StudentInformation{" +
+                "sid=" + sid +
+                ", resume=" + resume +
+                ", certificate=" + certificate +
+                ", grade='" + grade + '\'' +
+                ", secondDirection=" + secondDirection +
+                ", firstDirection=" + firstDirection +
+                ", process=" + process +
+                '}';
     }
 }
