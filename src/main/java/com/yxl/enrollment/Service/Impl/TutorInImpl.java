@@ -2,15 +2,21 @@ package com.yxl.enrollment.Service.Impl;
 
 import com.yxl.enrollment.Mapper.MessageMapper;
 import com.yxl.enrollment.Mapper.TutorInformationMapper;
+import com.yxl.enrollment.Mapper.TutorMapper;
 import com.yxl.enrollment.Module.MySql.Message;
+import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.MySql.TutorInformation;
 import com.yxl.enrollment.Service.TutorInformationService;
 import com.yxl.enrollment.Tool.Factory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class TutorInformationImpl implements TutorInformationService {
+public class TutorInImpl implements TutorInformationService {
+    @Autowired
+    TutorMapper tutorMapper;
     @Autowired
     TutorInformationMapper tutorInformationMapper;
     @Autowired
@@ -36,5 +42,15 @@ public class TutorInformationImpl implements TutorInformationService {
     public TutorInformation getTutorInformation(int tid) {
         TutorInformation tutorInformation = tutorInformationMapper.selectByTid(tid);
         return tutorInformation;
+    }
+
+    @Override
+    public int passTutorInformation(Tutor tutor, boolean pass, String message) {
+        int p = pass? 1:0;
+        System.out.println("p="+p);
+        tutorInformationMapper.updateDisplayByTid(tutor.getTid(), p);
+        //else 新增修改任务
+        Message msg = Factory.createMessage("-1", tutor.getEmail(),message);
+        return messageMapper.insert(msg);
     }
 }

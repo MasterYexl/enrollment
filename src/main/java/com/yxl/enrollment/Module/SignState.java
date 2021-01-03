@@ -31,8 +31,8 @@ public class SignState {
 
     public String getRoleName() {
         if (user.getRole()==0) return "学生";
-        if (user.getRole()==1) return "导师";
-        if (user.getRole()>1) return "管理员";
+        if (user.getRole()==1||user.getRole()==2) return "导师";
+        if (user.getRole()>2) return "管理员";
         return "错误";
     }
 

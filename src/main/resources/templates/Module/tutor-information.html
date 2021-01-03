@@ -30,7 +30,7 @@
     <div class="col-md-12">
         <div class="white-box">
             <h2 class="header-title">录取信息上传</h2>
-            <form class="js-validation-bootstrap form-horizontal" th:action="@{/upload/add-tutor-info}" th:method="post" th:object="${tifo}">
+            <form th:fragment="tutor" class="js-validation-bootstrap form-horizontal" th:action="@{/upload/add-tutor-info}" th:method="post" th:object="${tifo}">
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="direction">研究方向 <span class="text-danger">*</span></label>
                     <div class="col-md-9">

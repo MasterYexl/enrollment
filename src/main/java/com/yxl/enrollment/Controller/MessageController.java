@@ -4,8 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.yxl.enrollment.Conponent.Check;
 import com.yxl.enrollment.Mapper.MessageMapper;
 import com.yxl.enrollment.Module.MySql.Message;
-import com.yxl.enrollment.Module.MySql.User;
-import com.yxl.enrollment.Module.SignState;
+import com.yxl.enrollment.Tool.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,33 +26,28 @@ public class MessageController {
     @ResponseBody
     @GetMapping("/get")
     public String getMessage(HttpSession session){
-        List<Message> messages = messageMapper.selectAllByEmail(getEmail(session));
+        List<Message> messages = messageMapper.selectAllByEmail(Tool.getEmail(session));
         return JSON.toJSONString(messages);
     }
 
     @ResponseBody
     @GetMapping("/get-new")
     public String getNewMessage(HttpSession session){
-        List<Message> messages = messageMapper.selectNewByEmail(getEmail(session));
+        List<Message> messages = messageMapper.selectNewByEmail(Tool.getEmail(session));
         return JSON.toJSONString(messages);
     }
 
     @ResponseBody
     @GetMapping("/all-new-read")
     public String setOldMessage(HttpSession session){
-        messageMapper.readAllNewByEmail(getEmail(session));
+        messageMapper.readAllNewByEmail(Tool.getEmail(session));
         return "1";
     }
-
-    public String getEmail(HttpSession session){
-        SignState signState = (SignState) session.getAttribute("signState");
-        User user = signState.getUser();
-        return user.getEmail();
-    }
+    
 
     @GetMapping("/page")
     public String getPage(HttpSession session, Model model){
-        List<Message> messages = messageMapper.selectAllByEmail(getEmail(session));
+        List<Message> messages = messageMapper.selectAllByEmail(Tool.getEmail(session));
         model.addAttribute("messages", messages);
         return "Module/messages";
     }

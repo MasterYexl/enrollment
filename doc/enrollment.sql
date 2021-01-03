@@ -104,4 +104,14 @@ create table tutor_information
     constraint tutor_information_tutor_tid_fk
         foreign key (tid) references tutor (tid)
 );
+create table task
+(
+    task_id    int auto_increment
+        primary key,
+    owner      int                  not null,
+    task_class int                  null,
+    name       varchar(16)          not null,
+    `describe` varchar(255)         not null,
+    complete   tinyint(1) default 0 not null
+);
 
