@@ -10,7 +10,6 @@ import com.yxl.enrollment.Conponent.Check;
 import com.yxl.enrollment.Service.Impl.StudentInImpl;
 import com.yxl.enrollment.Tool.Factory;
 import com.yxl.enrollment.Tool.Tool;
-import javafx.scene.control.ToolBar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
