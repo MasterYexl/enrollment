@@ -13,8 +13,8 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/plugins/jquery-multi-select/css/multi-select.css" />
-    <link href="/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/plugins/jquery-multi-select/css/multi-select.css"/>
+    <link href="/plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.css" rel="stylesheet"/>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,11 +30,12 @@
 
 <!--Start row-->
 <div class="row">
+    <div th:replace="/Module/msg::showMsg"></div>
     <div class="col-md-12">
         <div class="white-box">
             <h2 class="header-title">报名信息</h2>
 
-            <form th:action="@{/user/do-enroll}" th:method="post" th:object="${sifo}" class="form-horizontal">
+            <form id="enroll-form" th:action="@{/user/do-enroll}" th:method="post" th:object="${sifo}" class="form-horizontal">
 
                 <div class="form-group">
                     <label class="col-md-3 control-label">
@@ -49,14 +50,27 @@
                     <label class="control-label col-md-3">研究方向</label>
                     <div class="col-md-9">
                         <select name="country" class="multi-select" multiple="" id="my_multi_select3">
-                            <option value="AF">Afghanistan</option>
+                            <option th:each="dir:${dirs}" th:value="${dir.did}" th:text="${dir.directionName}"></option>
                         </select>
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label class="control-label col-md-3">第一志愿</label>
+                    <div class="col-md-9" id="first">
+                        <label class="label label-success" id="fid-name"></label>
+                        <label class="label label-default" id="sed-name" onclick="exchangeTag()">请选择研究方向</label>
+                    </div>
+                </div>
+                <div class="form-group" th:class="hidden">
+                    <input id="fid" th:field="*{firstDirection}"/>
+                </div>
+                <div class="form-group" th:class="hidden" style="margin-right: 10px">
+                    <input id="sed" th:field="*{secondDirection}"/>
+                </div>
+                <div></div>
                 <div class="form-group m-b-0">
                     <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-primary">报名</button>
+                        <input type="button" onclick="comfier()" class="btn btn-primary" value="报名">
                     </div>
                 </div>
 
@@ -71,7 +85,7 @@
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/plugins/moment/moment.js"></script>
-<script  src="/js/jquery.slimscroll.js "></script>
+<script src="/js/jquery.slimscroll.js "></script>
 <script src="/js/jquery.nicescroll.js"></script>
 <script src="/js/functions.js"></script>
 <!-- End core plugin -->
@@ -84,105 +98,6 @@
 <script type="text/javascript" src="/plugins/jquery-multi-select/js/jquery.multi-select.js"></script>
 <script src="/pages/multi-select-init.js"></script>
 
-<script>
-    jQuery(function ($) {
-        $('.autonumber').autoNumeric('init');
-    });
-
-    //Bootstrap-TouchSpin
-    $(".vertical-spin").TouchSpin({
-        verticalbuttons: true,
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary",
-        verticalupclass: 'ti-plus',
-        verticaldownclass: 'ti-minus'
-    });
-    var vspinTrue = $(".vertical-spin").TouchSpin({
-        verticalbuttons: true
-    });
-    if (vspinTrue) {
-        $('.vertical-spin').prev('.bootstrap-touchspin-prefix').remove();
-    }
-
-    $("input[name='demo1']").TouchSpin({
-        min: 0,
-        max: 100,
-        step: 0.1,
-        decimals: 2,
-        boostat: 5,
-        maxboostedstep: 10,
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary",
-        postfix: '%'
-    });
-    $("input[name='demo2']").TouchSpin({
-        min: -1000000000,
-        max: 1000000000,
-        stepinterval: 50,
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary",
-        maxboostedstep: 10000000,
-        prefix: '$'
-    });
-    $("input[name='demo3']").TouchSpin({
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary"
-    });
-    $("input[name='demo3_21']").TouchSpin({
-        initval: 40,
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary"
-    });
-    $("input[name='demo3_22']").TouchSpin({
-        initval: 40,
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary"
-    });
-
-    $("input[name='demo5']").TouchSpin({
-        prefix: "pre",
-        postfix: "post",
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary"
-    });
-    $("input[name='demo0']").TouchSpin({
-        buttondown_class: "btn btn-primary",
-        buttonup_class: "btn btn-primary"
-    });
-
-
-    //Bootstrap-MaxLength
-    $('input#defaultconfig').maxlength()
-
-    $('input#thresholdconfig').maxlength({
-        threshold: 20
-    });
-
-    $('input#moreoptions').maxlength({
-        alwaysShow: true,
-        warningClass: "label label-success",
-        limitReachedClass: "label label-danger"
-    });
-
-    $('input#alloptions').maxlength({
-        alwaysShow: true,
-        warningClass: "label label-success",
-        limitReachedClass: "label label-danger",
-        separator: ' out of ',
-        preText: 'You typed ',
-        postText: ' chars available.',
-        validate: true
-    });
-
-    $('textarea#textarea').maxlength({
-        alwaysShow: true
-    });
-
-    $('input#placement').maxlength({
-        alwaysShow: true,
-        placement: 'top-left'
-    });
-</script>
 
 </body>
 

@@ -1,14 +1,14 @@
 //multiselect start
 
-
-$('#my_multi_select1').multiSelect();
-$('#my_multi_select2').multiSelect({
-    selectableOptgroup: true
-});
-
+let fidName = document.getElementById("fid-name");
+let sedName = document.getElementById("sed-name");
+let fid = document.getElementById("fid");
+let sed = document.getElementById("sed");
+let control = 0;
 $('#my_multi_select3').multiSelect({
-    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
-    selectionHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='search...'>",
+    selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='搜索...'>",
+    selectionHeader: "<input type='text' class='form-control search-input' hidden='hidden' autocomplete='off' placeholder='search...'>",
+    keepOrder: true,
     afterInit: function (ms) {
         var that = this,
             $selectableSearch = that.$selectableUl.prev(),
@@ -32,15 +32,54 @@ $('#my_multi_select3').multiSelect({
                 }
             });
     },
-    afterSelect: function () {
-        this.qs1.cache();
-        this.qs2.cache();
+    afterSelect: function (value) {
+        if (control>=2) {
+            document.getElementById(fid.value+"-selection").click();
+            control=1;
+        }
+        addTag(document.getElementById(value+"-selection").innerText, value);
+        control++;
     },
-    afterDeselect: function () {
-        this.qs1.cache();
-        this.qs2.cache();
+    afterDeselect: function (value) {
+        let tmp = --control;
+        if (fid.value == value){
+            control = 0;
+            if (tmp===1) addTag(sedName.innerText, sed.value);
+            else addTag("", "");
+            control = 1;
+            addTag("请选择研究方向", "");
+        }
+        else if (control===1) addTag("请选择研究方向", "");
+        control = tmp;
     }
 });
 
-
+function addTag(text, value){
+    if (control === 0){
+        fid.value = value;
+        fidName.innerText = text;
+    }else {
+        sed.value = value;
+        sedName.innerText = text;
+    }
+}
+function exchangeTag(){
+    if (sed.value === null|| sed.value === "") return ;
+    let ft = sedName.style.float;
+    if (ft === "left"){
+        sedName.style.float = "none";
+    }else sedName.style.float = "left";
+    [fid.value, fidName.innerText, sed.value, sedName.innerText] = [sed.value, sedName.innerText, fid.value, fidName.innerText];
+}
+function comfier(){
+    swal({
+        title: "请确认",
+        text: "第一志愿: "+fidName.innerText+"\n第二志愿: "+sedName.innerText,
+        icon: "warning",
+        buttons: ["再想想","确认准确无误"],
+        dangerMode: true,
+    }).then((value) => {
+        if (value) document.getElementById("enroll-form").submit();
+    });
+}
 //multiselect end

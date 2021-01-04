@@ -56,4 +56,13 @@ public class Direction {
     public int hashCode() {
         return Objects.hash(did, directionName, teachers);
     }
+
+    @Override
+    public String toString() {
+        return "Direction{" +
+                "did=" + did +
+                ", directionName='" + directionName + '\'' +
+                ", teachers='" + teachers + '\'' +
+                '}';
+    }
 }

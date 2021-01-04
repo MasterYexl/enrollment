@@ -7,9 +7,15 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 public interface DirectionMapper extends Mapper<Direction> {
     @Select("select * from direction where direction_name=#{name}")
     Direction selectByDirectionName(String name);
+
+    @Select("select * from direction")
+    @Override
+    List<Direction> selectAll();
 
     @Delete("delete from direction where did=#{did}")
     int deleteByDid(Integer did);

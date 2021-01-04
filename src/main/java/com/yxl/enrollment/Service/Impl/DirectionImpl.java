@@ -6,6 +6,8 @@ import com.yxl.enrollment.Service.DirectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DirectionImpl implements DirectionService {
     @Autowired
@@ -43,6 +45,11 @@ public class DirectionImpl implements DirectionService {
     @Override
     public int deleteByDid(int did) {
         return directionMapper.deleteByDid(did);
+    }
+
+    @Override
+    public List<Direction> getAll() {
+        return directionMapper.selectAll();
     }
 
 }
