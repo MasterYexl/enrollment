@@ -12,4 +12,6 @@ public interface TutorInformationService {
 
     int passTutorInformation(Tutor tutor, boolean pass, String message);
 
+    int addTutor(Tutor tutor);
+
 }

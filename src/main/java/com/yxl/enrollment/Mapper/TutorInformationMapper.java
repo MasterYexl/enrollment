@@ -15,7 +15,7 @@ public interface TutorInformationMapper extends Mapper<TutorInformation> {
     TutorInformation selectByTid(int tid);
 
     @Override
-    @Update("update tutor_information set direction = #{direction}, enrollment_number = #{enrollmentNumber}, tel = #{tel}, email = #{email}, scholarship = #{scholarship}, tutor_require = #{tutorRequire}, display = #{display}")
+    @Update("update tutor_information set direction = #{direction}, enrollment_number = #{enrollmentNumber}, tel = #{tel}, email = #{email}, scholarship = #{scholarship}, tutor_require = #{tutorRequire}, display = #{display} where tutor_info_id = #{tutorInfoId}")
     int updateByPrimaryKey(TutorInformation tutorInformation);
 
     @Update("update tutor_information set display = #{display} where tid = #{tid}")

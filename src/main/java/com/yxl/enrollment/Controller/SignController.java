@@ -8,6 +8,7 @@ import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.SignState;
 import com.yxl.enrollment.Conponent.Check;
 import com.yxl.enrollment.Service.Impl.StudentInImpl;
+import com.yxl.enrollment.Service.Impl.TutorInImpl;
 import com.yxl.enrollment.Tool.Factory;
 import com.yxl.enrollment.Tool.Tool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class SignController {
     @Autowired
     TutorMapper tutorMapper;
     @Autowired
+    TutorInImpl tutorIn;
+    @Autowired
     Check check;
 
     @GetMapping("/student")
@@ -49,6 +52,7 @@ public class SignController {
                 session.setAttribute("msg", "注册成功");
                 return "redirect:/sign/login";
             }catch (Exception e){
+                e.printStackTrace();
                 session.setAttribute("msg","服务器错误");
             }
         }else session.setAttribute("msg","格式错误");
@@ -67,7 +71,7 @@ public class SignController {
     public String doAddTutor(@ModelAttribute Tutor tutor, HttpSession session){
         if (check.checkTutor(tutor)){
             try {
-                tutorMapper.insertSelective(tutor);
+                tutorIn.addTutor(tutor);
                 session.setAttribute("msg", "注册成功");
                 return "redirect:/sign/login";
             }catch (Exception e){

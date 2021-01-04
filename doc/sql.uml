@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>DATABASE</ID>
+  <OriginalElement>d4178620-6748-41a8-b548-2fd962eea8a7.SCHEMA:enrollment</OriginalElement>
+  <nodes>
+    <node x="278.0" y="290.5">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.enrollment</node>
+    <node x="0.0" y="506.0">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.message</node>
+    <node x="50.5" y="0.0">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.student</node>
+    <node x="0.0" y="244.5">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.student_information</node>
+    <node x="451.5" y="23.0">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor</node>
+    <node x="648.0" y="221.0">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.table_name</node>
+    <node x="433.06917735042737" y="237.75480769230768">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor_information</node>
+    <node x="220.0" y="506.0">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.task</node>
+    <node x="236.5" y="34.5">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.direction</node>
+    <node x="424.0" y="506.0">d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.admin</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor_information" target="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor">
+      <point x="0.0" y="-120.0" />
+      <point x="0.0" y="62.5" />
+    </edge>
+    <edge source="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.student_information" target="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.student">
+      <point x="0.0" y="-96.5" />
+      <point x="-41.5" y="85.5" />
+    </edge>
+    <edge source="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.enrollment" target="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.direction">
+      <point x="0.0" y="-50.5" />
+      <point x="0.0" y="51.0" />
+    </edge>
+    <edge source="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.table_name" target="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor">
+      <point x="0.0" y="-120.0" />
+      <point x="745.0" y="196.0" />
+      <point x="584.0" y="196.0" />
+      <point x="53.0" y="62.5" />
+    </edge>
+    <edge source="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.enrollment" target="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.student">
+      <point x="-37.33333333333337" y="-50.5" />
+      <point x="296.66666666666663" y="196.0" />
+      <point x="175.0" y="196.0" />
+      <point x="41.5" y="85.5" />
+    </edge>
+    <edge source="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.enrollment" target="d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor">
+      <point x="37.33333333333337" y="-50.5" />
+      <point x="371.33333333333337" y="196.0" />
+      <point x="478.0" y="196.0" />
+      <point x="-53.0" y="62.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0743185078909612" x="450.2642719130748" y="316.9659131205674" />
+  <SelectedNodes>
+    <node>d4178620-6748-41a8-b548-2fd962eea8a7.TABLE:enrollment.tutor_information</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Key columns</Category>
+    <Category>Columns</Category>
+    <Category>Virtual foreign keys</Category>
+  </Categories>
+</Diagram>
+

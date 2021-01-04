@@ -12,7 +12,7 @@ public class LockHandlerInterceptor implements HandlerInterceptor {
         SignState signState = (SignState) request.getSession().getAttribute("signState");
         if (signState==null) return false;
         if (signState.getLock()){
-            System.out.println(request.getRequestURI()+"被拦截： LockHandlerInterceptor");
+//            System.out.println(request.getRequestURI()+"被拦截： LockHandlerInterceptor");
             request.getRequestDispatcher("/sign/lock").forward(request,response);
             return false;
         }

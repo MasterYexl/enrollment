@@ -31,6 +31,7 @@ public class StudentInImpl implements StudentService {
     public int addStudent(Student student) {
         studentMapper.insert(student);
         StudentInformation studentInformation = new StudentInformation();
+        student = studentMapper.selectByEmail(student.getEmail());
         studentInformation.setSid(student.getSid());
         return studentInformationMapper.insert(studentInformation);
     }

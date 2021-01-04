@@ -11,7 +11,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         SignState signState = (SignState) request.getSession().getAttribute("signState");
         if (signState == null) {
-            System.out.println(request.getRequestURI()+"被拦截： LoginHandlerInterceptor");
+//            System.out.println(request.getRequestURI()+"被拦截： LoginHandlerInterceptor");
             request.getRequestDispatcher("/sign/login").forward(request,response);
             return false;
         }

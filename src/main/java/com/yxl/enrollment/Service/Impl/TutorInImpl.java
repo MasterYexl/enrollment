@@ -1,8 +1,10 @@
 package com.yxl.enrollment.Service.Impl;
 
+import com.yxl.enrollment.Mapper.DirectionMapper;
 import com.yxl.enrollment.Mapper.MessageMapper;
 import com.yxl.enrollment.Mapper.TutorInformationMapper;
 import com.yxl.enrollment.Mapper.TutorMapper;
+import com.yxl.enrollment.Module.MySql.Direction;
 import com.yxl.enrollment.Module.MySql.Message;
 import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.MySql.TutorInformation;
@@ -21,6 +23,8 @@ public class TutorInImpl implements TutorInformationService {
     TutorInformationMapper tutorInformationMapper;
     @Autowired
     MessageMapper messageMapper;
+    @Autowired
+    DirectionImpl directionImpl;
 
     //添加导师信息,并通知管理员审核
     @Override
@@ -41,16 +45,40 @@ public class TutorInImpl implements TutorInformationService {
     @Override
     public TutorInformation getTutorInformation(int tid) {
         TutorInformation tutorInformation = tutorInformationMapper.selectByTid(tid);
+        if (tutorInformation==null) tutorInformation = new TutorInformation();
         return tutorInformation;
     }
 
     @Override
     public int passTutorInformation(Tutor tutor, boolean pass, String message) {
         int p = pass? 1:0;
-        System.out.println("p="+p);
         tutorInformationMapper.updateDisplayByTid(tutor.getTid(), p);
-        //else 新增修改任务
+        TutorInformation tutorInformation = tutorInformationMapper.selectByTid(tutor.getTid());
         Message msg = Factory.createMessage("-1", tutor.getEmail(),message);
-        return messageMapper.insert(msg);
+        messageMapper.insert(msg);
+        Direction direction = directionImpl.getDirectionByDirectionName(tutorInformation.getDirection());
+        //将通过的研究方向添加到表
+        if (pass){
+            if (direction == null) {
+                direction = new Direction();
+                direction.setTeachers(tutor.getTid()+" ");
+                direction.setDirectionName(tutorInformation.getDirection());
+                return directionImpl.addDirection(direction);
+            }
+            else {
+                if (!direction.getTeachers().contains(tutor.getTid()+" "))direction.setTeachers(direction.getTeachers()+tutor.getTid()+" ");
+            }
+        }
+        else {
+            direction.setTeachers(direction.getTeachers().replace(tutor.getTid()+" ",""));
+            if (direction.getTeachers().equals("")) return directionImpl.deleteByDid(direction.getDid());
+        }
+        //else 新增修改任务
+        return directionImpl.updateDirectionBy(direction);
+    }
+
+    @Override
+    public int addTutor(Tutor tutor) {
+        return tutorMapper.insert(tutor);
     }
 }

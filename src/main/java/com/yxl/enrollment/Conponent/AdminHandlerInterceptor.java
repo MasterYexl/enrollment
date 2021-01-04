@@ -11,7 +11,7 @@ public class AdminHandlerInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         SignState signState = (SignState) request.getSession().getAttribute("signState");
         if (signState==null) {
-            System.out.println(request.getRequestURI()+"被拦截： AdminHandlerInterceptor");
+//            System.out.println(request.getRequestURI()+"被拦截： AdminHandlerInterceptor");
             return false;
         }
         return signState.getUser().getRole() > 1;
