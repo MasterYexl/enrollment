@@ -8,6 +8,8 @@ import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.MySql.TutorInformation;
 import com.yxl.enrollment.Module.SignState;
 import com.yxl.enrollment.Service.Impl.TutorInImpl;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+@Api(description = "管理员API接口")
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
@@ -27,6 +30,7 @@ public class AdminController {
     @Autowired
     TutorInImpl tutorIn;
 
+    @ApiOperation(value = "审核通过")
     @ResponseBody
     @GetMapping("/tutor-pass/{tid}")
     public String tutorPass(@PathVariable("tid") Integer tid){
@@ -37,6 +41,7 @@ public class AdminController {
     }
 
     @ResponseBody
+    @ApiOperation(value = "审核不通过")
     @GetMapping("/tutor-not-pass/{tid}")
     public String tutorNotPass(@PathVariable("tid") Integer tid,@RequestParam("message") String message){
         Tutor tutor = tutorMapper.selectById(tid);

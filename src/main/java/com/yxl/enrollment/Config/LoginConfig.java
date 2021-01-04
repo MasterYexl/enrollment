@@ -11,9 +11,9 @@ import org.springframework.web.servlet.config.annotation.*;
 public class LoginConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/index","/error","/sign/**","/css/**","/fonts/**","/images/**","/js/**","/pages/**","/plugins/**","/error/**");
-        registry.addInterceptor(new LockHandlerInterceptor()).addPathPatterns("/admin/**","/admin").excludePathPatterns("/css/**","/fonts/**","/images/**","/js/**","/pages/**","/plugins/**");
-        registry.addInterceptor(new AdminHandlerInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin");
+        registry.addInterceptor(new LoginHandlerInterceptor()).addPathPatterns("/**").excludePathPatterns("/index","/error","/sign/**","/css/**","/fonts/**","/images/**","/js/**","/pages/**","/plugins/**","/error/**","/swagger-ui.html","/v2/**","/swagger-resources/**");
+        registry.addInterceptor(new LockHandlerInterceptor()).addPathPatterns("/admin/**","/admin").excludePathPatterns("/css/**","/fonts/**","/images/**","/js/**","/pages/**","/plugins/**","/swagger-ui.html","/v2/**","/swagger-resources/**");
+        registry.addInterceptor(new AdminHandlerInterceptor()).addPathPatterns("/admin/**").excludePathPatterns("/admin","/swagger-ui.html","/v2/**","/swagger-resources/**");
         //验证码 有空实现
         //        registry.addInterceptor(new VerificationCodeHandlerInterceptor()).addPathPatterns("/sign/student","/sign/tutor","/sign/admin","/sign/signup");
     }
