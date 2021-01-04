@@ -21,32 +21,40 @@ public class Check {
     private AdminMapper adminMapper;
 
     public boolean checkStudent(Student student) {
-        if (student.getName().length() <= 20 && student.getPassword().length() <= 20
-                && student.getUniverse().length() <= 30 && student.getUniverse().length() <= 30
-                && student.getSpecialities().length() <= 30 && student.getEmail().length() <= 32
+        if (baseCheek(student.getName(), 20)
+                && baseCheek(student.getPassword(), 20)
+                && baseCheek(student.getUniverse(), 30)
+                && baseCheek(student.getSpecialities(), 30)
+                && baseCheek(student.getEmail(), 32)
                 && student.getEmail().contains("@")) {
-            return true;
+            Student getStudent = studentMapper.selectByEmail(student.getEmail());
+            if (getStudent == null) {
+                return true;
+            }
         }
         return false;
     }
 
     public boolean checkAdmin(Admin admin) {
-        if (admin.getName().length() <= 20 && admin.getPassword().length() <= 20) {
+        if (baseCheek(admin.getName(), 20) && baseCheek(admin.getPassword(), 20)) {
             return true;
         }
         return false;
     }
 
     public boolean checkTutor(Tutor tutor) {
-        if (tutor.getName().length() <= 20 && tutor.getPassword().length() <= 20
-                && tutor.getEmail().length() <= 32 && tutor.getEmail().contains("@")) {
+        if (baseCheek(tutor.getName(), 20)
+                && baseCheek(tutor.getPassword(), 20)
+                && baseCheek(tutor.getEmail(), 32)
+                && tutor.getEmail().contains("@")) {
             return true;
         }
+
         return false;
     }
 
     public boolean checkStudentInformation(StudentInformation studentInformation) {
-        if (studentInformation.getGrade().length() <= 255
+        if (baseCheek(studentInformation.getGrade(), 255)
                 && studentInformation.getFirstDirection() != null
                 && studentInformation.getSecondDirection() != null
                 && studentInformation.getProcess() != null) {
@@ -56,11 +64,9 @@ public class Check {
     }
 
     public boolean checkTutorInformation(TutorInformation tutorInformation) {
-        if (tutorInformation.getDirection().length() <= 32
-                && tutorInformation.getEmail().length() <= 32
-                && tutorInformation.getEmail().contains("@")
-                && tutorInformation.getTutorRequire().length() <= 255
-                && tutorInformation.getTel().length()==11) {
+
+        if (baseCheek(tutorInformation.getDirection(), 32)
+                && baseCheek(tutorInformation.getTutorRequire(), 255)) {
             return true;
         }
         return false;
@@ -95,5 +101,12 @@ public class Check {
         if (orgAdmin == null) return null;
         if (orgAdmin.getPassword().equals(admin.getPassword())) return orgAdmin;
         else return null;
+    }
+
+    public static boolean baseCheek(String str, int length) {
+        if (str != null && !"".equals(str) && str.length() <= length) {
+            return true;
+        }
+        return false;
     }
 }
