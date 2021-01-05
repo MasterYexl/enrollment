@@ -35,4 +35,26 @@ public class StudentInImpl implements StudentService {
         studentInformation.setSid(student.getSid());
         return studentInformationMapper.insert(studentInformation);
     }
+
+    @Override
+    public int updateGradeBySid(int sid, String grade) {
+        Student student = studentMapper.selectById(sid);
+        return updateGradeBySid(student, grade);
+    }
+
+    @Override
+    public int updateGradeBySid(Student student, String grade) {
+        StudentInformation studentInformation = studentInformationMapper.selectBySid(student.getSid());
+        studentInformation.setGrade(grade);
+        return updateGradeBySid(student, studentInformation);
+    }
+
+    @Override
+    public int updateGradeBySid(Student student, StudentInformation studentInformation) {
+        studentInformationMapper.updateBySid(studentInformation);
+        Message message = Factory.createMessage("-1", student.getEmail(), "您的成绩已更新");
+        return messageMapper.insert(message);
+
+    }
+
 }

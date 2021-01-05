@@ -1,8 +1,6 @@
 package com.yxl.enrollment.Controller;
 
-import com.yxl.enrollment.Mapper.StudentInformationMapper;
-import com.yxl.enrollment.Mapper.TutorInformationMapper;
-import com.yxl.enrollment.Mapper.TutorMapper;
+import com.yxl.enrollment.Mapper.*;
 import com.yxl.enrollment.Module.MySql.*;
 import com.yxl.enrollment.Module.SignState;
 import com.yxl.enrollment.Service.Impl.DirectionImpl;
@@ -25,13 +23,14 @@ public class UserController {
     @Autowired
     StudentInformationMapper studentInformationMapper;
     @Autowired
+    MessageMapper messageMapper;
+    @Autowired
     DirectionImpl directionImpl;
+    @Autowired
+    StudentMapper studentMapper;
     @GetMapping("/tutor")
     String getAllTutors(Model model){
         List<Tutor> tutors = tutorMapper.selectAll();
-        for (Tutor tutor : tutors){
-            System.out.println(tutor);
-        }
         model.addAttribute("tutors", tutors);
         return "Module/tutor-list";
     }
@@ -39,11 +38,29 @@ public class UserController {
     @GetMapping("/tutor/{id}")
     String getTutor(@PathVariable("id") Integer id, Model model){
         Tutor tutor = tutorMapper.selectById(id);
-        System.out.println(tutor);
         TutorInformation tutorInformation = tutorInformationMapper.selectByTid(id);
         model.addAttribute("tutor",tutor);
         model.addAttribute("ti",tutorInformation);
         return "/Module/tutor-view-information";
+    }
+
+    @GetMapping("/student")
+    String getAllStudent(Model model){
+        List<Student> students = studentMapper.selectAll();
+        model.addAttribute("students", students);
+        System.out.println(students);
+        return "/Module/student-list";
+    }
+
+    @GetMapping("/student/{id}")
+    String getStudent(@PathVariable("id") Integer id,Model model){
+        System.out.println(id);
+        Student student = studentMapper.selectById(id);
+        StudentInformation studentInformation = studentInformationMapper.selectBySid(id);
+        System.out.println(student);
+        model.addAttribute("student", student);
+        model.addAttribute("si", studentInformation);
+        return "/Module/student-view-information";
     }
     
     @GetMapping("/enroll")
@@ -74,6 +91,8 @@ public class UserController {
             old.setFirstDirection(studentInformation.getFirstDirection());
             old.setSecondDirection(studentInformation.getSecondDirection());
             studentInformationMapper.updateBySid(old);
+            Message message = Factory.createMessage("-1", student.getEmail(), "你成功已报名我院研究生考试");
+            messageMapper.insert(message);
             msg = "报名成功！";
         }catch (Exception e){
             e.printStackTrace();

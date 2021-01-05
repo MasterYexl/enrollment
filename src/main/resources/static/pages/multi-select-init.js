@@ -7,7 +7,7 @@ let sed = document.getElementById("sed");
 let control = 0;
 $('#my_multi_select3').multiSelect({
     selectableHeader: "<input type='text' class='form-control search-input' autocomplete='off' placeholder='搜索...'>",
-    selectionHeader: "<input type='text' class='form-control search-input' hidden='hidden' autocomplete='off' placeholder='search...'>",
+    selectionHeader: "<div class='form-control search-input'>请至少选择一项</div>",
     keepOrder: true,
     afterInit: function (ms) {
         var that = this,
@@ -74,7 +74,7 @@ function exchangeTag(){
 function comfier(){
     swal({
         title: "请确认",
-        text: "第一志愿: "+fidName.innerText+"\n第二志愿: "+sedName.innerText,
+        text: "第一志愿: "+fidName.innerText+"\n第二志愿: "+sedName.innerText+"\n提交后将无法再次修改！",
         icon: "warning",
         buttons: ["再想想","确认准确无误"],
         dangerMode: true,

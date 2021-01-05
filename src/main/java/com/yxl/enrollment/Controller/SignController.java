@@ -46,7 +46,9 @@ public class SignController {
     }
     @PostMapping("add-student")
     public String doAddStudent(@ModelAttribute Student student, HttpSession session){
-        if (check.checkStudent(student)){
+        int ck = check.checkStudent(student);
+        if (ck==-1) session.setAttribute("msg","邮箱已注册");
+        if (ck==1){
             try {
                 studentIn.addStudent(student);
                 session.setAttribute("msg", "注册成功");
@@ -69,7 +71,9 @@ public class SignController {
     }
     @PostMapping("add-tutor")
     public String doAddTutor(@ModelAttribute Tutor tutor, HttpSession session){
-        if (check.checkTutor(tutor)){
+        int ck = check.checkTutor(tutor);
+        if (ck == -1) session.setAttribute("msg","邮箱已注册");
+        if (ck == 1){
             try {
                 tutorIn.addTutor(tutor);
                 session.setAttribute("msg", "注册成功");

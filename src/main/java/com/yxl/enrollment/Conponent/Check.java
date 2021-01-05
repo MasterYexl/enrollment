@@ -20,7 +20,7 @@ public class Check {
     @Autowired
     private AdminMapper adminMapper;
 
-    public boolean checkStudent(Student student) {
+    public int checkStudent(Student student) {
         if (baseCheek(student.getName(), 20)
                 && baseCheek(student.getPassword(), 20)
                 && baseCheek(student.getUniverse(), 30)
@@ -29,10 +29,11 @@ public class Check {
                 && student.getEmail().contains("@")) {
             Student getStudent = studentMapper.selectByEmail(student.getEmail());
             if (getStudent == null) {
-                return true;
+                return 1;
             }
+            else return -1;
         }
-        return false;
+        return 0;
     }
 
     public boolean checkAdmin(Admin admin) {
@@ -42,15 +43,16 @@ public class Check {
         return false;
     }
 
-    public boolean checkTutor(Tutor tutor) {
+    public int checkTutor(Tutor tutor) {
         if (baseCheek(tutor.getName(), 20)
                 && baseCheek(tutor.getPassword(), 20)
                 && baseCheek(tutor.getEmail(), 32)
                 && tutor.getEmail().contains("@")) {
-            return true;
+            Tutor test = tutorMapper.selectByEmail(tutor.getEmail());
+            if (test == null) return 1;
+            else return -1;
         }
-
-        return false;
+        return 0;
     }
 
     public boolean checkStudentInformation(StudentInformation studentInformation) {

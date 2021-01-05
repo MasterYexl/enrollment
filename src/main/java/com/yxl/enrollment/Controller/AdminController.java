@@ -7,6 +7,7 @@ import com.yxl.enrollment.Module.MySql.Admin;
 import com.yxl.enrollment.Module.MySql.Tutor;
 import com.yxl.enrollment.Module.MySql.TutorInformation;
 import com.yxl.enrollment.Module.SignState;
+import com.yxl.enrollment.Service.Impl.StudentInImpl;
 import com.yxl.enrollment.Service.Impl.TutorInImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +26,8 @@ public class AdminController {
     Check check;
     @Autowired
     TutorInformationMapper tutorInformationMapper;
+    @Autowired
+    StudentInImpl studentIn;
     @Autowired
     TutorMapper tutorMapper;
     @Autowired
@@ -48,6 +51,11 @@ public class AdminController {
         int info = tutorIn.passTutorInformation(tutor, false, message);
         if (info == 1) return "1";
         return "0";
+    }
+    @ResponseBody
+    @GetMapping("/grade-alert/{sid}")
+    public String gradeAlert(@PathVariable("sid") Integer sid, @RequestParam("grade") String grade){
+        return studentIn.updateGradeBySid(sid, grade)+"";
     }
 
 }

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <title></title>
+    <link href="/css/icons.css" rel="stylesheet">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/responsive.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<form th:fragment="student" class="js-validation-bootstrap form-horizontal" th:object="${si}">
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="student">姓名 <span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input id="sid" th:field="${student.id}" style="display: none">
+            <input readonly class="form-control" type="text" id="student" name="student" th:field="${student.name}"
+                   placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="student">学校 <span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input readonly class="form-control" type="text" id="uni" name="student" th:field="${student.universe}"
+                   placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="spe">专业 <span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input readonly class="form-control" type="text" id="spe" name="spe" th:field="${student.specialities}"
+                   placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="gd1">政治分数 <span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control" type="number" id="gd1" name="gd1" placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="gd2">外语分数 <span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control" type="number" id="gd2" name="gd2" placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-3 control-label" for="gd3">专业分数 <span class="text-danger">*</span></label>
+        <div class="col-md-9">
+            <input class="form-control" type="number" id="gd3" name="gd3" placeholder="">
+        </div>
+    </div>
+    <div class="form-group" hidden="hidden">
+        <div class="col-md-9">
+            <input class="form-control" type="text" id="grade" name="grade" th:field="*{grade}" placeholder="">
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-8 col-md-offset-3">
+            <input value="修改" class="btn  btn-primary" onclick="alertStudentGrade()">
+        </div>
+    </div>
+</form>
+
+<!--Begin core plugin -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/plugins/moment/moment.js"></script>
+<script src="/plugins/sweetalert/sweet-alert.js"></script>
+<script src="/js/jquery.slimscroll.js "></script>
+<script src="/js/jquery.nicescroll.js"></script>
+<script src="/js/functions.js"></script>
+<script src="/pages/svf.js"></script>
+<!-- End core plugin -->
+
+</body>
+</html>

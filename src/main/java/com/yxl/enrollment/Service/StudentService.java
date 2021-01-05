@@ -12,6 +12,8 @@ public interface StudentService {
 
     int addStudent(Student student);
 
-
+    int updateGradeBySid(int sid, String grade);
+    int updateGradeBySid(Student student, String grade);
+    int updateGradeBySid(Student student, StudentInformation studentInformation);
 //    int passTutorInformation(Tutor tutor, boolean pass, String message);
 }
