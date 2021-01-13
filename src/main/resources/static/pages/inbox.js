@@ -92,7 +92,7 @@ function getAllMessage(){
             //更新消息数量
             changeMessageNumber(messages.length);
             //添加消息
-            for (let i=start;i<messages.length;i++){
+            for (let i=0;i<messages.length-start;i++){
                 let message = createMessage(messages[i]);
                 messageAllList.appendChild(message);
             }

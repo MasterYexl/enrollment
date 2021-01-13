@@ -16,10 +16,7 @@ public class DirectionImpl implements DirectionService {
     public int addDirection(Direction direction) {
         Direction tryDirection = directionMapper.selectByDirectionName(direction.getDirectionName());
         if (tryDirection==null) return directionMapper.insert(direction);
-        String teachers = tryDirection.getTeachers();
-        teachers += direction.getTeachers();
-        tryDirection.setTeachers(teachers);
-        return directionMapper.insert(tryDirection);
+        return 0;
     }
 
     @Override
@@ -30,6 +27,11 @@ public class DirectionImpl implements DirectionService {
     @Override
     public Direction getDirectionByDid(Integer did) {
         return null;
+    }
+
+    @Override
+    public Direction getDirectionByTid(Integer tid) {
+        return directionMapper.selectByTid(tid);
     }
 
     @Override

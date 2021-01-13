@@ -2,99 +2,86 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <link rel="icon" href="/images/favicon.png" type="image/png">
-  <title>录取</title>
-   <link href="/css/icons.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+    <title>录取</title>
+    <link href="/css/icons.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/responsive.css" rel="stylesheet">
-    
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-          <script src="js/html5shiv.min.js"></script>
-          <script src="js/respond.min.js"></script>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
     <![endif]-->
 
 </head>
 
 <body class="sticky-header">
+<div th:replace="/Module/msg::showMsg"></div>
 
- 
-    <!--Start row-->
-    <div class="row">
-        <div class="col-md-12">
-          <div class="white-box">
+<!--Start row-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="white-box">
             <h2 class="header-title">录取</h2>
-              
-               <form class="form-horizontal">
 
-                 <div class="form-group">
-                  <label class="col-md-2 control-label">姓名</label>
-                  <div class="col-md-10">
-                    <input class="form-control" value="" type="text">
-                  </div>
-                </div>
-                 
-                 <div class="form-group">
-                  <label class="col-md-2 control-label">总成绩</label>
-                  <div class="col-md-10">
-                    <input class="form-control" value="" type="text">
-                  </div>
-                </div>
+            <form class="form-horizontal" th:object="${student}">
 
                 <div class="form-group">
-                    <label class="col-md-2 control-label">主要研究方向</label>
+                    <label class="col-md-2 control-label">姓名</label>
                     <div class="col-md-10">
-                      <input class="form-control" value="" type="text">
+                        <input class="form-control" th:field="*{name}" value="" type="text">
                     </div>
-                  </div>
-                
-                 <div class="form-group">
-                  <label class="col-md-2 control-label" for="example-email">专业</label>
-                  <div class="col-md-10">
-                    <input id="tel" name="tel" class="form-control" value="" type="tel">
-                  </div>
                 </div>
-                  
-                 <div class="form-group">
-                  <label class="col-md-2 control-label">志愿一</label>
-                  <div class="col-md-10">
-                    <input class="form-control" value="" type="text">
-                  </div>
+                <input id="grade" class="form-control hidden" th:field="*{grade}" type="text">
+                <input id="sid" class="form-control hidden" th:field="*{id}" type="text">
+                <div class="form-group">
+                    <label class="col-md-2 control-label">总成绩</label>
+                    <div class="col-md-10">
+                        <input id="tot-grade" class="form-control" value="" type="text">
+                    </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-md-2 control-label">志愿二</label>
-                  <div class="col-md-10">
-                    <input class="form-control" value="" type="text">
-                  </div>
+                    <label class="col-md-2 control-label">志愿一</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="" type="text" th:field="*{firstDirection}">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">志愿二</label>
+                    <div class="col-md-10">
+                        <input class="form-control" value="" type="text" th:field="*{secondDirection}">
+                    </div>
                 </div>
 
                 <div class="form-group m-b-0">
-                  <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" class="btn btn-primary">录取</button>
-                    <button type="submit" class="btn btn-primary">不录取</button>
-                  </div>
-              </div>
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <input type="button" class="btn btn-primary" onclick="pass(1)" value="录取"/>
+                        <input type="button" class="btn btn-primary" onclick="pass(0)" value="不录取"/>
+                    </div>
+                </div>
 
-               </form>
-    <!--End row-->
-          </div>
+            </form>
+            <!--End row-->
         </div>
     </div>
+</div>
 
 
-
-    <!--Begin core plugin -->
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <!-- End core plugin -->
+<!--Begin core plugin -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<!-- End core plugin -->
+<script src="/pages/admission.js"></script>
 
 </body>
 

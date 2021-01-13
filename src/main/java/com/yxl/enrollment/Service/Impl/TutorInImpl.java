@@ -61,20 +61,14 @@ public class TutorInImpl implements TutorInformationService {
         if (pass){
             if (direction == null) {
                 direction = new Direction();
-                direction.setTeachers(tutor.getTid()+" ");
+                direction.setTeachers(tutor.getTid());
                 direction.setDirectionName(tutorInformation.getDirection());
                 return directionImpl.addDirection(direction);
             }
-            else {
-                if (!direction.getTeachers().contains(tutor.getTid()+" "))direction.setTeachers(direction.getTeachers()+tutor.getTid()+" ");
-            }
+            else return 1;
         }
-        else {
-            direction.setTeachers(direction.getTeachers().replace(tutor.getTid()+" ",""));
-            if (direction.getTeachers().equals("")) return directionImpl.deleteByDid(direction.getDid());
-        }
+        else return directionImpl.deleteByDid(direction.getDid());
         //else 新增修改任务
-        return directionImpl.updateDirectionBy(direction);
     }
 
     @Override

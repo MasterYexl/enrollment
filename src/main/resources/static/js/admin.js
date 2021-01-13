@@ -56,14 +56,20 @@ function getNewMessage(){
             messages = JSON.parse(json);
             if (messages.length<=0) return ;
             if (oldMessageJson !== null) start = oldMessageJson.length;
-            oldMessageJson = messages;
             //更新消息数量
             changeMessageNumber(messages.length);
             //添加消息
-            for (let i=start;i<messages.length;i++){
+            for (let i=0;i<messages.length-start;i++){
                 let message = createMessageLink(messages[i]);
-                messageList.appendChild(message);
+                message.id = "msg"+(i+start);
+                if (oldMessageJson === null) messageList.appendChild(message);
+                else {
+                    messageList.insertBefore(message,document.getElementById("msg0"));
+                    document.getElementById("msg0").id = "msg"+i+start;
+                    message.id = "msg0";
+                }
             }
+            oldMessageJson = messages;
         }
     }
     xmlhttp.open("GET","/message/get-new",true);
@@ -103,13 +109,6 @@ function readAll(){
         // IE6, IE5 浏览器执行代码
         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.onreadystatechange=function()
-    {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-            alert(xmlhttp.responseText);
-        }
-    }
     xmlhttp.open("GET","/message/all-new-read",true);
     xmlhttp.send();
     changeMessageNumber(0);
@@ -137,7 +136,7 @@ function createMessageLink(message){
     photo.appendChild(img);
     let subject = document.createElement("span");
     subject.className = "subject";
-    subject.innerText = message["fromEmail"];
+    subject.innerText = message["fromEmail"]==="-1"? "系统通知":message["fromEmail"];
     let msg = document.createElement("span");
     msg.className = "message";
     msg.innerText = message["message"];

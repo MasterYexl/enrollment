@@ -22,7 +22,7 @@
 </head>
 <body>
 <div th:each="tutor:${students}" class="col-md-3">
-    <div class="user-box" th:onclick="'window.location=\'/user/student/'+${tutor.id}+'\''">
+    <div class="user-box" th:onclick="${path}==0? 'window.location=\'/user/student/'+${tutor.id}+'\'':'window.location=\'/user/admission-view/'+${tutor.id}+'\''">
         <div class="user-img">
             <img src="/images/users/avatar-1.jpg" alt=""/>
         </div>
@@ -30,6 +30,7 @@
             <h4 th:text="${tutor.name}"></h4>
             <p th:text="${tutor.universe}"></p>
             <span th:text="${tutor.specialities}"></span>
+            <span id="path" hidden="hidden" th:text="${path}"></span>
         </div>
     </div>
 </div>

@@ -38,7 +38,7 @@
                         
                        <form th:action="@{/sign/login}" th:method="post">
                            <div class="form-group">
-                               <input type="text" class="form-control" placeholder="用户名" name="id">
+                               <input type="text" class="form-control" placeholder="邮箱" name="id">
                            </div>
                            
                            <div class="form-group">
@@ -46,7 +46,7 @@
                            </div>
 
                            <div class="form-group">
-                               学生<input type="radio" name="role" value="0">
+                               学生<input type="radio" checked name="role" value="0">
                                导师<input type="radio" name="role" value="1">
                            </div>
 

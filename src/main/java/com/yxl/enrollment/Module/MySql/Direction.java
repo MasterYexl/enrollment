@@ -10,7 +10,8 @@ import java.util.Objects;
 public class Direction {
     private int did;
     private String directionName;
-    private String teachers;
+    private int teachers;
+
 
     @Id
     @Column(name = "did", nullable = false)
@@ -34,11 +35,11 @@ public class Direction {
 
     @Basic
     @Column(name = "teachers", nullable = false, length = 255)
-    public String getTeachers() {
+    public int getTeachers() {
         return teachers;
     }
 
-    public void setTeachers(String teachers) {
+    public void setTeachers(int teachers) {
         this.teachers = teachers;
     }
 

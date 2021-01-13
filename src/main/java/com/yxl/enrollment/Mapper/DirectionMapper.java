@@ -13,6 +13,12 @@ public interface DirectionMapper extends Mapper<Direction> {
     @Select("select * from direction where direction_name=#{name}")
     Direction selectByDirectionName(String name);
 
+    @Select("select * from direction where teachers=#{tid}")
+    Direction selectByTid(int tid);
+
+    @Select("select * from direction where did=#{id}")
+    Direction selectById(int id);
+
     @Select("select * from direction")
     @Override
     List<Direction> selectAll();
@@ -25,4 +31,6 @@ public interface DirectionMapper extends Mapper<Direction> {
     int insert(Direction direction);
     @Update("update direction set direction_name=#{directionName}, teachers=#{teachers} where did=#{did}")
     int updateByDid(Direction direction);
+
+
 }

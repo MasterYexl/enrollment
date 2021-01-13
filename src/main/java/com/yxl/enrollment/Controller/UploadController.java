@@ -107,6 +107,7 @@ public class UploadController {
             String fn = file.getOriginalFilename();
             if (fn == null) return false;
             String filePath = ResourceUtils.getURL("classpath:").getPath() + "static"+"/student/" + student.getId() + "/";
+            System.out.println(filePath);
             File dest = new File(filePath);
             if (!dest.exists()){
                 System.out.println("创建了文件"+dest.getAbsolutePath());
